@@ -39,35 +39,35 @@ print("Total HTML Links for scrapping Data are:", len(list(Links)))
 # Below script takes lot of time to parse 506 HTML links,
 # So data is saved in JSON file for ready reference in AWS s3 bucket
 
-Result = []
-for Link in Links:
-    print (Link)
-    r = requests.get(Link)
-    soup = bs(r.content, "html.parser")
-    type(soup)
-    data_dict={"City":[],"Places":[],"Address":[],"Website":[],"Phone":[],"Reviews":[],"Rating (Out of 5)":[]}
-    title_elem = soup.find('h1',class_='ui_header h1')
-    print (title_elem.text)
-    data_dict["Places"]=(title_elem.text.strip())
-    address_elem = soup.find('div',class_='LjCWTZdN')
-    data_dict["Address"]=(address_elem.text.strip())
-    website_elem = soup.find('div',class_='_1ev9TQ-P')
-    data_dict["Website"]=(website_elem.a['href'])
-    phone_elem = soup.find('a',class_='_TF8HH3_')
-    data_dict["Phone"]=(phone_elem.text.strip())
-    Review_elem = soup.find('div',class_='_1NKYRldB')
-    data_dict["Reviews"]=(Review_elem.text.strip())
-    City_elem = soup.find('div',class_='eQSJNhO6')
-    City = City_elem.text.strip()
-    data_dict["City"]=(City.split(" ",7)[-1])
-    Rating_elem = soup.find('a',class_='_1d_R5B7y')
-    try:
-        data_dict["Rating (Out of 5)"]=(Rating_elem.text.strip())
-    except:
-        data_dict["Rating (Out of 5)"]=(Rating_elem)
-    Result.append(data_dict)
+# Result = []
+# for Link in Links:
+#     print (Link)
+#     r = requests.get(Link)
+#     soup = bs(r.content, "html.parser")
+#     type(soup)
+#     data_dict={"City":[],"Places":[],"Address":[],"Website":[],"Phone":[],"Reviews":[],"Rating (Out of 5)":[]}
+#     title_elem = soup.find('h1',class_='ui_header h1')
+#     print (title_elem.text)
+#     data_dict["Places"]=(title_elem.text.strip())
+#     address_elem = soup.find('div',class_='LjCWTZdN')
+#     data_dict["Address"]=(address_elem.text.strip())
+#     website_elem = soup.find('div',class_='_1ev9TQ-P')
+#     data_dict["Website"]=(website_elem.a['href'])
+#     phone_elem = soup.find('a',class_='_TF8HH3_')
+#     data_dict["Phone"]=(phone_elem.text.strip())
+#     Review_elem = soup.find('div',class_='_1NKYRldB')
+#     data_dict["Reviews"]=(Review_elem.text.strip())
+#     City_elem = soup.find('div',class_='eQSJNhO6')
+#     City = City_elem.text.strip()
+#     data_dict["City"]=(City.split(" ",7)[-1])
+#     Rating_elem = soup.find('a',class_='_1d_R5B7y')
+#     try:
+#         data_dict["Rating (Out of 5)"]=(Rating_elem.text.strip())
+#     except:
+#         data_dict["Rating (Out of 5)"]=(Rating_elem)
+#     Result.append(data_dict)
     
-final=pd.DataFrame().from_dict(Result)
+# final=pd.DataFrame().from_dict(Result)
 
 
 # Read the JSON file from AWS s3 bucket and forming DataFrame
